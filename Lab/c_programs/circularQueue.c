@@ -1,5 +1,5 @@
 #include <stdio.h>
-// #include <stdbool.h>
+#include <stdbool.h>
 
 int rear=-1,front=-1,*array,maxlength;
 
@@ -9,82 +9,80 @@ void read(){
 void display(){
     for(int i=0;i<maxlength;i++) printf(" %d ",array[i]);
 }
-// bool isFull(){
-//     if(rear==maxlength) return true;
-//     else return false;
-// }
-// bool isEmpty(){
-//     if(front==maxlength) return true;
-//     else return false;
-// }
+bool isFull(){
+   // 1 is added to rear since rear start from 0
+    if(front==((rear+1)%maxlength)) return true;
+    else return false;
+}
+bool isEmpty(){
+    if(front==-1) return true;
+    else return false;
+}
 void enqueue(int element){
-    printf("\nenqueing...");
-    if(rear==-1){
-        rear++;
-        array[rear]=element;
-    }
-    else if(rear==front){
-        printf("\nOverflow occured");
+    if(isFull()){
+        printf("\nError - Overflow occured");
     }
     else{
-        if(rear==maxlength-1){//checking rear is at the end
-            printf("rear is maximum");
-            array[rear]=element;
-            rear = 0;
+        printf("\nInserting...");
+        if(front ==-1 && rear==-1){
+            ++front;
+            ++rear;  
         }
         else {
-            printf("\ninserting...");
-            array[rear]=element;
-            rear++;
+                printf("rear = %d",rear);
+                rear = (rear+1)%maxlength;
+                if(front == rear-maxlength||front == rear+1){//checking rear is at the end
+                printf("\n\n**** Warning! No more insertion possible since rear is at maximum ****\n");
+                }
         }
+        array[rear] = element;
+        printf("\nAfter inserting %d, queue is ",element);
+        display();
     }
-    printf("\nAfter inserting %d, queue is ",element);
-    display();
 }
 void dequeue(){
-    if(front==rear-1){
-        printf("Underflow occured");
+    if(isEmpty()){
+        printf("Error - Underflow occured");
     }
     else{
         printf("Element deleted is : %d",array[front]);
-        if(front==maxlength-1){
-            array[front]=0;
-            printf("\nElement deleted is : %d",array[front]);
-            front = 0;
+        array[front]=0;
+        printf("\nAfter deleting, queue is ");
+        display();
+        if(front==rear){
+            printf("\n\n**** Warning! No more deletion is possible since front is at rear ****\n");
+            front = -1;
+            rear = -1;
+        }else{
+            front=(front+1)%maxlength;
         }
-        else{
-            array[front]=0;
-            front++;
-        }
+        printf("\nfront = %d\n",front);
     }
-    printf("\nAfter deleting, queue is ");
-    display();
 }
 void search(int element){
     for(int i=0;i<maxlength;i++){
         if(array[i]==element){
-            printf(" %d found at index position %d",array[i],i);
+            printf(" %d found at index position %d",array[i],i+1);
+            break;
         }
     }
 }
 void main(){
     int menuInput=1,element;
-    printf("Enter no of elements in queue : ");
+    printf("Enter length of queue : ");
     scanf("%d",&maxlength);
 
     int a[maxlength];
     array = a;
-    // read();
-
-    // printf("\nQueue elements are : ");
-    // display();
+   
     while(menuInput!=0){
         printf("\n*********** Menu ***********");
-        printf("\n1 - Enter element : ");
-        printf("\n2 - Delete element : ");
-        printf("\n3 - Search element : ");
-        printf("\n4 - Display queue : ");
-        printf("\n0 - Exit\n");
+        printf("\n1 - Enter element ");
+        printf("\n2 - Delete element ");
+        printf("\n3 - Search element ");
+        printf("\n4 - Display queue ");
+        printf("\n0 - Exit");
+        printf("\nEnter your choice : ");
         scanf("%d", &menuInput);
         switch (menuInput){
             case 0: break;
