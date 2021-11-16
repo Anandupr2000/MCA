@@ -4,11 +4,13 @@ int *top;
 struct Node{
     int data;
     struct Node *next;
-}*head,node;
+    struct Node *prev;
+}node;
+struct Node *head = NULL;
 void push(int element){
-    struct Node *newnode = ;
+    struct Node *newnode;
     while(newnode!=NULL){
-        node.next;
+        newnode.next;
         newnode.data = element;
     }
 }
