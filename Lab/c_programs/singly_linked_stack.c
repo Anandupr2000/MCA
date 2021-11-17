@@ -25,7 +25,9 @@ void display()
         }
     }
 }
+void peek(int count1){
 
+}
 void push(int element)
 {
     struct Node *newnode = malloc(sizeof(struct Node));
@@ -46,7 +48,7 @@ void pop()
         struct Node *temp;
         temp = head;
         head = temp->next;
-        printf("\nPoped element is %d",temp->data);
+        printf("\nPopped element is %d",temp->data);
         free(temp);
     }
     printf("\nAfter poping, Stack is ");
@@ -76,6 +78,7 @@ void search(int element)
         }
         temp = temp->next;
     }
+    free(temp);
 }
 
 void main()
@@ -112,9 +115,10 @@ void main()
         }
         case 3:
         {
-            printf("Enter element : ");
+            printf("Enter element for searching : ");
             scanf("%d", &element);
             search(element);
+            break;
         }
         case 4:
         {
