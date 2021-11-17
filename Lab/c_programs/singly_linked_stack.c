@@ -46,6 +46,8 @@ void pop()
         struct Node *temp;
         temp = head;
         head = temp->next;
+        printf("\nPoped element is %d",temp->data);
+        free(temp);
     }
     printf("\nAfter poping, Stack is ");
     display();
