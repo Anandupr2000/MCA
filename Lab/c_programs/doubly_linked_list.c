@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 // creating node
 int *top;
 struct Node{
@@ -8,11 +9,11 @@ struct Node{
 }node;
 struct Node *head = NULL;
 void push(int element){
-    struct Node *newnode;
-    while(newnode!=NULL){
-        newnode.next;
-        newnode.data = element;
-    }
+    struct Node *newnode = malloc(sizeof(struct Node));
+    newnode->data = element;
+    newnode->next = head;//pointing newnode's next pointer to existing node
+    head->prev = newnode;//pointing existing node's prev pointer to newnode
+    head = newnode;//pointing back to newnode
 }
 void main() {
     int menuInput=1,element;
