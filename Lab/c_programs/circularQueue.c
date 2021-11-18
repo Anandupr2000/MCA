@@ -3,11 +3,23 @@
 
 int rear=-1,front=-1,*array,maxlength;
 
-void read(){
-    for(int i=0;i<maxlength;i++) scanf("%d",&array[i]);
-    }
 void display(){
-    for(int i=0;i<maxlength;i++) printf(" %d ",array[i]);
+    if(front==-1){
+        printf("Queue is empty");
+    }
+    else if(front==0 && rear==maxlength-1)
+    {
+        for(int i=0;i<maxlength;i++) printf(" %d ",array[i]);
+    }
+    else{
+        if(front<=rear){
+	      for(int i=front;i<=rear;i++) printf(" %d ",array[i]);
+	    }
+    	else{
+	      for(int i=front;i<maxlength;i++) printf(" %d ",array[i]);
+	      for(int i=0;i<=rear;i++) printf(" %d ",array[i]);
+	    }
+    }
 }
 bool isFull(){
    // 1 is added to rear since rear start from 0
@@ -25,11 +37,10 @@ void enqueue(int element){
     else{
         printf("\nInserting...");
         if(front ==-1 && rear==-1){
-            ++front;
-            ++rear;  
+            front++;
+            rear++;  
         }
         else {
-                printf("rear = %d",rear);
                 rear = (rear+1)%maxlength;
                 if(front == rear-maxlength||front == rear+1){//checking rear is at the end
                 printf("\n\n**** Warning! No more insertion possible since rear is at maximum ****\n");
@@ -48,7 +59,6 @@ void dequeue(){
         printf("Element deleted is : %d",array[front]);
         array[front]= 0;
         printf("\nAfter deleting, queue is ");
-        display();
         if(front==rear){
             printf("\n\n**** Warning! No more deletion is possible since front is at rear ****\n");
             front = -1;
@@ -56,16 +66,50 @@ void dequeue(){
         }else{
             front=(front+1)%maxlength;
         }
-        printf("\nfront = %d\n",front);
+        display();
     }
 }
 void search(int element){
-    for(int i=0;i<maxlength;i++){
-        if(array[i]==element){
-            printf(" %d found at index position %d",array[i],i+1);
+    bool found=false;
+    int position;
+    if(front==-1){
+        printf("Queue is empty");
+    }
+    else if(front==0 && rear==maxlength-1)
+    {
+        for(int i=0;i<maxlength;i++)
+            if(array[i]==element){
+	        found=true;
+            position = i+1;
             break;
         }
     }
+    else{
+        if(front<=rear){
+	      for(int i=front;i<=rear;i++)
+            if(array[i]==element){
+                found=true;
+                position = i+1;
+                break;
+            }
+	    }
+    	else{
+	        for(int i=front;i<maxlength;i++)
+                if(array[i]==element){
+	                found=true;
+                    position = i+1;
+                    break;
+                }
+	        for(int i=0;i<=rear;i++)
+                if(array[i]==element){
+                    found=true;
+                    position = i+1;
+                    break;
+                }
+	    }
+    }
+    if(found) printf("%d found at position %d",element,position);
+    else printf("%d not found",element);
 }
 void main(){
     int menuInput=1,element;
@@ -76,7 +120,7 @@ void main(){
     array = a;
    
     while(menuInput!=0){
-        printf("\n*********** Menu ***********");
+        printf("\n\n*********** Menu ***********");
         printf("\n1 - Enter element ");
         printf("\n2 - Delete element ");
         printf("\n3 - Search element ");
