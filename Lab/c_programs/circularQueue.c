@@ -144,6 +144,7 @@ void main(){
                         printf("Enter element : ");
                         scanf("%d",&element);
                         search(element);
+                        break;
                     }        
             case 4: {
                         printf("\nQueue elements are : ");
