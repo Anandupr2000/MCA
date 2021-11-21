@@ -35,7 +35,7 @@ void push(int element)
     newnode->data = element; // since newnode is pointer we use ->
     newnode->next = head;
     head = newnode;
-    printf("\nAfter pushing, Stack is ");
+    printf("\nAfter pushing, Stack : ");
     display();
 }
 void pop()
@@ -53,7 +53,7 @@ void pop()
         printf("\nPopped element is %d",temp->data);
         free(temp);
     }
-    printf("\nAfter poping, Stack is ");
+    printf("\nAfter poping, Stack : ");
     display();
 }
 void search(int element)
@@ -89,7 +89,7 @@ void main()
 
     while (menuInput != 0)
     {
-        printf("\n*********** Menu ***********");
+        printf("\n\n*********** Menu ***********");
         printf("\n1 - Enter element ");
         printf("\n2 - Delete element ");
         printf("\n3 - Search element ");
@@ -122,7 +122,7 @@ void main()
         }
         case 4:
         {
-            printf("\nStack elements are : ");
+            printf("\nStack : ");
             display();
             break;
         }
