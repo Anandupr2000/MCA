@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <float.h>
 
 int rear=-1,front=-1,*array,maxlength;
 

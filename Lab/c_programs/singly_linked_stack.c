@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 // creating node
 struct Node
 {
@@ -10,7 +11,7 @@ struct Node *head = NULL; //is top pointer in stack
 
 void display()
 {
-    struct Node *temp = malloc(sizeof(struct Node));
+    struct Node *temp;
     temp = head;
     if (temp == NULL)
     {
@@ -42,6 +43,7 @@ void pop()
     if (head == NULL)
     {
         printf("Underflow occured");
+        return;
     }
     else
     {
@@ -56,12 +58,14 @@ void pop()
 }
 void search(int element)
 {
+    bool found = false;
     int count = 0;
     struct Node *temp;
     temp = head;
     if (temp == NULL)
     {
         printf("\nStack is empty.");
+        return;
     }
     while (temp != NULL)
     {
@@ -69,16 +73,12 @@ void search(int element)
         if (temp->data == element)
         {
             printf("\n%d found position %d.", element, count);
-            break;
-        }
-        else
-        {
-            printf("\n%d not found.");
+            found = true;
             break;
         }
         temp = temp->next;
     }
-    free(temp);
+    if(!found) printf("\n%d not found.",element);
 }
 
 void main()
