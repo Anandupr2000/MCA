@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "C:/msys64/usr/lib/gcc/x86_64-pc-msys/10.2.0/include/c++/tr1",
                 "C:/msys64/usr/lib/gcc/x86_64-pc-msys/10.2.0/include/c++",
-                "C:/msys64/usr/lib/gcc/x86_64-pc-msys/10.2.0/include/c++/x86_64-pc-msys"
+                "C:/msys64/usr/lib/gcc/x86_64-pc-msys/10.2.0/include/c++/x86_64-pc-msys",
+                "C:/tools/opencv-4.5.3/include"
             ],
             "defines": [
                 "_DEBUG",

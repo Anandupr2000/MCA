@@ -26,33 +26,18 @@ void display()
         }
     }
 }
-void peek(int count1)
-{
-}
+void peek(int count1){
 
-void change(int position1,int newValue)
+}
+void push(int element)
 {
-    int position=0;
-    struct Node *temp;
-    temp = head;
-    while (temp != NULL)
-    {
-        position++;
-        if(position == position1){
-            temp->data = newValue;
-        }
-        temp = temp->next;
-    }
-// }
-// void push(int element)
-// {
-//     struct Node *newnode = malloc(sizeof(struct Node));
-//     newnode->data = element; // since newnode is pointer we use ->
-//     newnode->next = head;
-//     head = newnode;
-//     printf("\nAfter pushing, Stack : ");
-//     display();
-// }
+    struct Node *newnode = malloc(sizeof(struct Node));
+    newnode->data = element; // since newnode is pointer we use ->
+    newnode->next = head;
+    head = newnode;
+    printf("\nAfter pushing, Stack : ");
+    display();
+}
 void pop()
 {
     if (head == NULL)
@@ -65,7 +50,7 @@ void pop()
         struct Node *temp;
         temp = head;
         head = temp->next;
-        printf("\nPopped element is %d", temp->data);
+        printf("\nPopped element is %d",temp->data);
         free(temp);
     }
     printf("\nAfter poping, Stack : ");
@@ -93,8 +78,7 @@ void search(int element)
         }
         temp = temp->next;
     }
-    if (!found)
-        printf("\n%d not found.", element);
+    if(!found) printf("\n%d not found.",element);
 }
 
 void main()
@@ -110,7 +94,6 @@ void main()
         printf("\n2 - Delete element ");
         printf("\n3 - Search element ");
         printf("\n4 - Display queue ");
-        // printf("\n5 - Change specific element value");
         printf("\n0 - Exit");
         printf("\nEnter your choice : ");
         scanf("%d", &menuInput);
@@ -119,41 +102,30 @@ void main()
         case 0:
             break;
         case 1:
-            {
-                printf("Enter element : ");
-                scanf("%d", &element);
-                push(element);
-                break;
-            }
+        {
+            printf("Enter element : ");
+            scanf("%d", &element);
+            push(element);
+            break;
+        }
         case 2:
-            {
-                pop();
-                break;
-            }
+        {
+            pop();
+            break;
+        }
         case 3:
-            {
-                printf("Enter element for searching : ");
-                scanf("%d", &element);
-                search(element);
-                break;
-            }
+        {
+            printf("Enter element for searching : ");
+            scanf("%d", &element);
+            search(element);
+            break;
+        }
         case 4:
-            {
-                printf("\nStack : ");
-                display();
-                break;
-            }
-        // case 5:
-        //     {
-        //         int newVal,pos;
-        //         printf("\nEnter position : ");
-        //         scanf("%d",&newVal);
-        //         printf("\nEnter value : ");
-        //         scanf("%d",&pos);
-        //         change(pos,newVal);
-        //         break;
-        //     }
-        default: printf("\n****** Unknown input ********\nPlease enter a valid input\n");
+        {
+            printf("\nStack : ");
+            display();
+            break;
+        }
         }
     }
 }
