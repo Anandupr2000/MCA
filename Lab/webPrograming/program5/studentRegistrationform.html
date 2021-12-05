@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Document</title>
+    <title>Student Registration form</title>
 </head>
 <body>
     <h1 align="center">Student Registration form</h1>
     <form>
-        <table border="1">
+        <table border="1" width="85%" align="center"cellpadding="10">
             <tr>
                 <td>
                     FIRST NAME
                 </td>
                 <td>
-                    <input type="text" maxlength="30">(max 30 characters)
+                    <input type="text" maxlength="30">&nbsp;(max 30 characters)
                 </td>
             </tr>
             <tr>
                 <td>
-                    SECOND NAME
+                    LAST NAME
                 </td>
                 <td>
-                    <input type="text" maxlength="30">(max 30 characters)
+                    <input type="text" maxlength="30">&nbsp;(max 30 characters)
                 </td>
             </tr>
             <tr>
@@ -106,7 +106,163 @@
                     MOBILE NUMBER
                 </td>
                 <td>
-                    <input type="text" pattern="[0-9]" title="Enter only numbers">
+                    <input type="text" pattern="[0-9]{10}" title="Enter 10 digits">&nbsp;(10 digit number)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    GENDER
+                </td>
+                <td>
+                    <label for="gender-male">Male</label>
+                    <input type="radio" id="gender-male" name="gender" value="male">    
+                    <label for="gender-female">Female</label>
+                    <input type="radio" id="gender-female" name="gender" value="female">    
+                </td>
+            </tr>
+            <tr>
+                <td>ADDRESS</td>
+                <td>
+                    <textarea name="address" id="txt-address" cols="30" rows="5">
+                    </textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CITY</td>
+                <td>
+                    <input type="text" name="city" id="city" maxlength="30">&nbsp;(max 30 characters)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    PINCODE
+                </td>
+                <td>
+                    <input type="text" pattern="[0-9]{6}" title="Enter 6 digits">&nbsp; (6 digit number)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    STATE
+                </td>
+                <td>
+                    <input type="text" maxlength="30">&nbsp; (max 30 characters)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    COUNTRY
+                </td>
+                <td>
+                    <input type="text" value="India">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    HOBBIES
+                </td>
+                <td>
+                    <label for="drawing">Drawing</label>
+                    <input type="checkbox" name="drawing" value="drawing">&nbsp;
+                    <label for="singing">Singing</label>
+                    <input type="checkbox" name="singing" value="singing">&nbsp;
+                    <label for="dancing">Dancing</label>
+                    <input type="checkbox" name="dancing" value="dancing">&nbsp;
+                    <label for="sketching">Sketching</label>
+                    <input type="checkbox" name="sketching" value="sketching">&nbsp;
+                    <br/>
+                    <label for="others">Others</label>
+                    <input type="checkbox" name="others" value="others">&nbsp;
+                    <input type="text" name="hobby_input">
+                </td>
+            </tr>
+
+            <tr>
+                <td>QUALIFICATION</td>
+                <td>
+                    <table>
+                        <tr>
+                            <th>Sl.No.</th><th>Examination</th><th>Board</th><th>Percentage</th><th>Year of Passing</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Class X</td>
+                            <td><input type="text" required></td>
+                            <td><input type="text" maxlength="3" pattern="\d"title="Enter percentage" required></td>
+                            <td><input type="text" pattern="\d{4}" title="Enter year"required></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Class XI</td>
+                            <td><input type="text" required></td>
+                            <td><input type="text" maxlength="3" pattern="\d"title="Enter percentage" required></td>
+                            <td><input type="text" pattern="\d{4}" title="Enter year"required></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Graduation</td>
+                            <td><input type="text" required></td>
+                            <td><input type="text" pattern="[0-100]{2,3}"title="Enter percentage" required></td>
+                            <td><input type="text" required></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Masters</td>
+                            <td><input type="text" required></td>
+                            <td><input type="text" pattern="[0-100]{2,3}"title="Enter percentage" required></td>
+                            <td><input type="text" required></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    COURSES <br/>APPLIED FOR
+                </td>
+                <td>
+                    <label for="course_mca">MCA</label>
+                    <input type="radio" id="course_mca" name="course" value="mca">
+
+                    <label for="course_mtech">M.Tech</label>
+                    <input type="radio" id="course_mtech" name="course" value="mtech">   
+
+                    <label for="course_msc">M.Sc</label>
+                    <input type="radio" id="course_msc" name="course" value="msc">    
+
+                    <label for="course_phd">Ph.D</label>
+                    <input type="radio" id="course_phd" name="course" value="phd">    
+                </td>
+            </tr>
+
+            <tr>
+                <td>TYPE YOUR PASSWORD</td>
+                <td><input type="password" >&nbsp;(max 30 characters)</td>
+            </tr>
+
+            <tr>
+                <td>UPLOAD YOUR PHOTO</td>
+                <td><input type="file" accept="image/*"/></td>
+            </tr>
+
+            <tr>
+                <td>
+                    DATE OF TC
+                </td>
+                <td>
+                    <!-- <input type="time"> -->
+                    <input type="date">
+                    <!-- <input type="datetime-local"> -->
+                </td>
+            </tr>
+            
+            <tr align="center">
+            <!-- <tr> -->
+                <td colspan="3" >
+                        <input type="submit" value="Submit" >
+                        <input type="reset" value="Reset">
                 </td>
             </tr>
         </table>
