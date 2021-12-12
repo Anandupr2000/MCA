@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+
 /////TODO: Traversal - success
 /////TODO: insert at the beginning is working fine - ok
 /////TODO: insert at the last - success
@@ -22,13 +23,22 @@ struct Node
 };
 struct Node *head = NULL;
 //displaying elements
-void display()
+void display(int orientation)
 {
     struct Node *temp = head;
+    struct Node *lastNode = NULL;
     while (temp != NULL)
     {
-        printf(" %d ", temp->data);
+        lastNode = temp;
+        if(orientation == 1) printf(" %d ", temp->data);
         temp = temp->next;
+    }
+    if(orientation == 0){
+        temp = lastNode;
+        while(temp != NULL){
+            printf(" %d ", temp->data);
+            temp = temp->prev;
+        }
     }
 }
 
@@ -128,7 +138,7 @@ void insert(int element, int pos)
     if(inserted){
             maxlength++; // After insertion increase the size of the list
             printf("\nAfter inserting, Doubly linked list : ");
-            display();
+            display(1);
             printf("\n");
         }
         else{
@@ -174,8 +184,8 @@ void delete (int pos)
 
         int count = 1;
         bool deleted = false;
-        printf("\nPerforming delete operation...\n");
-        printf("\n%d is maxlength", maxlength);
+        // printf("\nPerforming delete operation...\n");
+        // printf("\n%d is maxlength", maxlength);
         struct Node *temp = head;
         printf("\n%d is given position", pos);
         struct Node *delNode = NULL;
@@ -247,7 +257,7 @@ void delete (int pos)
         }
         if(deleted && head!=NULL){
             printf("\nAfter poping, Doubly linked list : ");
-            display();
+            display(1);
             maxlength--;
         }
         else{
@@ -270,7 +280,8 @@ void main()
         printf("\n5 - Delete element at specified position");
         printf("\n6 - Delete element at last position");
         printf("\n7 - Search element ");
-        printf("\n8 - Display list ");
+        printf("\n8 - Display list in forward direction");
+        printf("\n9 - Display list in reverse direction");
         printf("\n0 - Exit");
         printf("\nEnter your choice : ");
         scanf("%d", &menuInput);
@@ -322,15 +333,21 @@ void main()
         }
         case 7:
         {
-            printf("Enter element : ");
+            printf("\nEnter element : ");
             scanf("%d", &element);
             search(element);
             break;
         }
         case 8:
         {
-            printf("\nDoubly_linked_list  => ");
-            display();
+            printf("\nDoubly_linked_list in forward direction => ");
+            display(1);
+            break;
+        }
+        case 9:
+        {
+            printf("\nDoubly_linked_list in reverse direction => ");
+            display(0);
             break;
         }
         }
