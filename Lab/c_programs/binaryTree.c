@@ -3,23 +3,25 @@
 #include <stdbool.h>
 
 int no_of_nodes = 0;
-int entries[50];
 struct Node
 {
     int data;
-    // struct Node *parent;
     struct Node *rchild;
     struct Node *lchild;
 } * Parent, *delNodeParent;
 
-void showArray()
-{
-    printf("\nEntered datas are => ");
-    for (int i = 0; i < no_of_nodes; i++)
-    {
-        printf("%d ", entries[i]);
-    }
-}
+
+////// don't write this fn in record
+
+// int entries[50];
+// void showArray()
+// {
+//     printf("\nEntered datas are => ");
+//     for (int i = 0; i < no_of_nodes; i++)
+//     {
+//         printf("%d ", entries[i]);
+//     }
+// }
 struct Node *findMin(struct Node *root)
 {
     struct Node *temp = root;
@@ -134,16 +136,13 @@ struct Node *search(int element)
     // traversing to leaf node
     while (root != NULL)
     { // will exit when nxt node has no child
-        printf("\nIteration no => %d", i);
-        printf("\ndata found => %d", root->data);
         
         if (element == root->data)
         {
             found = true;
             break;
         }
-        delNodeParent = root; //saving current node as parent of next node
-        printf("\nparent of data => %d", delNodeParent->data);
+        delNodeParent = root; //saving current node as parent of next node for using deletion operation
 
         // deciding which node to traverse next
         if (element < root->data)
@@ -171,7 +170,6 @@ struct Node *search(int element)
 }
 void delete (int element)
 {
-    printf("\nInside delete fn");
     // finding node to be deleted 
     struct Node *delNode = search(element); 
 
@@ -228,7 +226,6 @@ void delete (int element)
 
         free(delNode);
 
-        no_of_nodes--;
     }
 
     // case3 : node with 2 children
@@ -254,6 +251,10 @@ void delete (int element)
         delNodeParent->lchild = NULL;
         free(child);
     }
+    no_of_nodes--;
+    if(no_of_nodes==0){
+        Parent = NULL;
+    }
 }
 void main()
 {
@@ -265,83 +266,85 @@ void main()
         printf("\n2 - Delete element");
         printf("\n3 - Search element ");
         printf("\n4 - Display tree ");
-        printf("\n5 - Show order of elements entered"); // to show order of elements entered
-        printf("\n6 - Find maximum");
-        printf("\n7 - Find minimum");
-        printf("\n8 - Preorder traversal");
-        printf("\n9 - Inorder traversal");
-        printf("\n10 - Postorder traversal");
+        printf("\n5 - Find maximum");
+        printf("\n6 - Find minimum");
+        printf("\n7 - Preorder traversal");
+        printf("\n8 - Inorder traversal");
+        printf("\n9 - Postorder traversal");
+        // printf("\n10 - Show order of elements entered"); // to show order of elements entered
         printf("\n0 - Exit");
         printf("\nEnter your choice : ");
         scanf("%d", &menuInput);
         switch (menuInput)
         {
-        case 0:
-            break;
-        case 1:
-        {
-            printf("\nEnter element : ");
-            scanf("%d", &element);
-            // insert(element);
-            insert(Parent, element);
-            break;
-        }
-        case 2:
-        {
-            int element;
-            printf("\nEnter element to delete : ");
-            scanf("%d", &element);
-            delete (element);
-            break;
-        }
-        case 3:
-        {
-            int element;
-            printf("\nEnter element to be searched : ");
-            scanf("%d", &element);
-            search(element);
-            break;
-        }
-        case 4:
-        {
-            display(Parent, 0);
-            break;
-        }
-        case 5:
-        {
-            showArray();
-            break;
-        }
-        case 6:
-        {
-            struct Node *temp = findMax(Parent);
-            printf("\n%d is maximum", temp->data);
-            break;
-        }
-        case 7:
-        {
-            // findMin(Parent);
-            printf("\nEnter element : ");
-            scanf("%d", &element);
-            struct Node *temp = findMin(search(element));
-            printf("\n%d is minimum", temp->data);
-            break;
-        }
-        case 8:
-        {
-            preorder(Parent);
-            break;
-        }
-        case 9:
-        {
-            inorder(Parent);
-            break;
-        }
-        case 10:
-        {
-            postorder(Parent);
-            break;
-        }
+            case 0:
+                break;
+            case 1:
+            {
+                printf("\nEnter element : ");
+                scanf("%d", &element);
+                // insert(element);
+                insert(Parent, element);
+                break;
+            }
+            case 2:
+            {
+                int element;
+                printf("\nEnter element to delete : ");
+                scanf("%d", &element);
+                delete (element);
+                break;
+            }
+            case 3:
+            {
+                int element;
+                printf("\nEnter element to be searched : ");
+                scanf("%d", &element);
+                search(element);
+                break;
+            }
+            case 4:
+            {
+                display(Parent, 0);
+                break;
+            }
+            case 5:
+            {
+                struct Node *temp = findMax(Parent);
+                printf("\n%d is maximum", temp->data);
+                break;
+            }
+            case 6:
+            {
+                // findMin(Parent);
+                printf("\nEnter element : ");
+                scanf("%d", &element);
+                struct Node *temp = findMin(search(element));
+                printf("\n%d is minimum", temp->data);
+                break;
+            }
+            case 7:
+            {
+                preorder(Parent);
+                break;
+            }
+            case 8:
+            {
+                inorder(Parent);
+                break;
+            }
+            case 9:
+            {
+                postorder(Parent);
+                break;
+            }
+            // this is a test case to showcase inserted values
+            // case 10:
+            // {
+            //     showArray();
+            //     break;
+            // }
+            default: printf("\n**** Enter any valid input provided in menu ****");
         }
     }
 }
