@@ -305,6 +305,7 @@ void main()
             }
             case 4:
             {
+                printf("\nParent (at left) to children (at right)");
                 display(Parent, 0);
                 break;
             }
