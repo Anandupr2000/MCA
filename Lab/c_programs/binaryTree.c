@@ -173,7 +173,7 @@ void delete (int element)
     // finding node to be deleted 
     struct Node *delNode = search(element); 
 
-    // for no element searched found
+    // for no element returned from searched fn
     if(delNode==NULL){
         printf("\nDeletion failed, since there is no %d in tree.",element);
         return;
