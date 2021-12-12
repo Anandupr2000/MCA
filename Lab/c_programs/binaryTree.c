@@ -32,7 +32,6 @@ struct Node *findMin(struct Node *root)
 
         temp = temp->lchild;
     }
-    printf("\n%d is minimum", temp->data);
     return temp;
 }
 struct Node *findMax(struct Node *root)
@@ -44,7 +43,6 @@ struct Node *findMax(struct Node *root)
     {
         temp = temp->rchild;
     }
-    printf("\n%d is maximum", temp->data);
     return temp;
 }
 
@@ -125,72 +123,10 @@ struct Node *insert(struct Node *root, int item) /*Insert a node*/
         root->rchild = insert(root->rchild, item);
     return root;
 }
-// void insert(int element)
-// {
-//     printf("\ninside insert fn");
-//     if (no_of_nodes == 0)
-//     {
-//         printf("\nSince no_of_nodes is 0, making new tree");
-//         Parent = malloc(sizeof(struct Node));
 
-//         Parent->data = element;
-//         // Parent->parent = NULL;
-//         Parent->lchild = NULL;
-//         Parent->rchild = NULL;
-//     }
-//     else
-//     {
-//         int i = 1;
-//         printf("\nAdding newnode to other");
-//         // taking intial value to be parent for begining traversal
-//         struct Node *temp = Parent;
-//         struct Node *Ptemp = NULL;
-//         //setting up new node tobe inserted
-//         struct Node *newnode = malloc(sizeof(struct Node));
-//         newnode->data = element;
-//         newnode->lchild = NULL;
-//         newnode->rchild = NULL;
-
-//         printf("\ndata entered is %d", element);
-
-//         while(temp!= NULL){
-//             Ptemp=temp;
-//             // making descion for left or right subtree
-//             if(element < temp->data){
-//                 // if element is less than existing node's value
-//                 printf("%d ",i);
-//                 temp = temp->lchild;
-//             }
-//             else{
-//                 // if element is greater than existing node's value
-//                 temp = temp->rchild;
-//             }
-//             i++;
-//         }
-
-//         if(element < Ptemp->data){
-//             Ptemp->lchild = newnode;
-//         }
-//         else{
-//             Ptemp->rchild = newnode;
-//         }
-//         printf("\n\nno of nodes traversed = %d",i);
-//     }
-//     // marking element entry
-//     no_of_nodes++;
-//     if (no_of_nodes == 1)
-//     {
-//         entries[0] = element;
-//     }
-//     else
-//     {
-//         entries[no_of_nodes - 1] = element;
-//     }
-// }
 struct Node *search(int element)
 {
     struct Node *root = Parent;
-    // struct Node *p = NULL;
 
     int i = 0;
     bool found = false;
@@ -236,16 +172,14 @@ struct Node *search(int element)
 void delete (int element)
 {
     printf("\nInside delete fn");
-    // struct Node *parentNode = search(element); // finding parent of node to be deleted since there is no parent ptr
+    // finding node to be deleted 
     struct Node *delNode = search(element); 
+
+    // for no element searched found
     if(delNode==NULL){
         printf("\nDeletion failed, since there is no %d in tree.",element);
         return;
     }
-    
-
-    printf("\n%d is data of node to be deleted", delNode->data);
-    // struct Node *pnode = delNode->parent; // parent of node to be deleted
 
     //case 1 : leaf node
     if (delNode->lchild == NULL && delNode->rchild == NULL)
@@ -266,7 +200,6 @@ void delete (int element)
     {
         // node to be deleted is left child of its parent and node itself doesn't have any left child
         printf("\nNode has one child");
-        // child = delNode->lchild;
 
         if(delNode==Parent)
             Parent = delNode->lchild;
@@ -284,9 +217,6 @@ void delete (int element)
     {
         // node to be deleted is left child of its parent and node itself doesn't have any left child
         printf("\nNode has one child");
-        // child = delNode->rchild;
-        //overriding existing node
-        // printf("data in child node %d", child->data);
 
         if(delNode==Parent) // if deleting node with one child is parent
                 Parent = delNode->rchild;
@@ -304,9 +234,7 @@ void delete (int element)
     // case3 : node with 2 children
     else if (delNode->lchild != NULL && delNode->rchild != NULL)
     {
-        // printf("\nNode with 2 children");
         //finding min in right subtree to replace it's value with deleting node's value
-        // printf("\nminimum of %d is %d", delNode->data,(findMin(delNode->rchild))->data);
         struct Node *child = findMin(delNode->rchild);
         
         printf("\n%d is the value to replaced to %d",child->data,delNode->data);
@@ -386,7 +314,8 @@ void main()
         }
         case 6:
         {
-            findMax(Parent);
+            struct Node *temp = findMax(Parent);
+            printf("\n%d is maximum", temp->data);
             break;
         }
         case 7:
@@ -394,7 +323,8 @@ void main()
             // findMin(Parent);
             printf("\nEnter element : ");
             scanf("%d", &element);
-            findMin(search(element));
+            struct Node *temp = findMin(search(element));
+            printf("\n%d is minimum", temp->data);
             break;
         }
         case 8:
