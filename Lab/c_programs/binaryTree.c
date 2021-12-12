@@ -170,6 +170,10 @@ struct Node *search(int element)
 }
 void delete (int element)
 {
+    if(Parent==NULL){
+        printf("\nNo tree found");
+        return;
+    }
     // finding node to be deleted 
     struct Node *delNode = search(element); 
 
@@ -184,7 +188,6 @@ void delete (int element)
     {
         printf("\nNode is leaf");
         free(delNode);
-        printf("%d is parent of %d",delNodeParent->data,element);
         if (element < delNodeParent->data)
             delNodeParent->lchild = NULL;
         else
@@ -207,8 +210,6 @@ void delete (int element)
             delNodeParent->rchild = delNode->lchild;
 
         free(delNode);
-
-        no_of_nodes--;
     }
     // for deleting node with right child
     else if (delNode->lchild == NULL && delNode->rchild != NULL)
