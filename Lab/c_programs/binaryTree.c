@@ -319,9 +319,7 @@ void main()
             case 6:
             {
                 // findMin(Parent);
-                printf("\nEnter element : ");
-                scanf("%d", &element);
-                struct Node *temp = findMin(search(element));
+                struct Node *temp = findMin(Parent);
                 printf("\n%d is minimum", temp->data);
                 break;
             }
