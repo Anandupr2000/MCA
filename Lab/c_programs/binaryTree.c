@@ -168,95 +168,60 @@ struct Node *search(int element)
         return NULL;
     }
 }
-void delete (int element)
+
+struct Node* delete(struct Node* root, int key)
 {
-    if(Parent==NULL){
-        printf("\nNo tree found");
-        return;
+    // base case
+    if (root == NULL){
+        no_of_nodes--;
+        if(no_of_nodes==0){
+            Parent=NULL;
+        }
+        return root;
     }
-    // finding node to be deleted 
-    struct Node *delNode = search(element); 
+ 
+    // If the key to be deleted
+    // is smaller than the root's
+    // key, then it lies in left subtree
+    if (key < root->data)
+        root->lchild = delete(root->lchild, key);
+ 
+    // If the key to be deleted
+    // is greater than or equal to the root's
+    // key, then it lies in right subtree
+    else if (key >= root->data)
+        root->rchild = delete(root->rchild, key);
+ 
+    // if key is same as root's key,
+    // then This is the node
+    // to be deleted
 
-    // for no element returned from searched fn
-    if(delNode==NULL){
-        printf("\nDeletion failed, since there is no %d in tree.",element);
-        return;
+    // node with only one child or no child
+    if (root->lchild == NULL) {
+        struct Node* temp = root->rchild;
+        free(root);
+        return temp;
     }
-
-    //case 1 : leaf node
-    if (delNode->lchild == NULL && delNode->rchild == NULL)
-    {
-        printf("\nNode is leaf");
-        free(delNode);
-        if (element < delNodeParent->data)
-            delNodeParent->lchild = NULL;
-        else
-            delNodeParent->rchild = NULL;
-    }
-
-    //case 2 : node with 1 child
-
-    //for deleting node with left child
-    else if (delNode->lchild != NULL && delNode->rchild == NULL)
-    {
-        // node to be deleted is left child of its parent and node itself doesn't have any left child
-        printf("\nNode has one child");
-
-        if(delNode==Parent)
-            Parent = delNode->lchild;
-        else if (element < delNodeParent->data)
-            delNodeParent->lchild = delNode->lchild;
-        else    
-            delNodeParent->rchild = delNode->lchild;
-
-        free(delNode);
-    }
-    // for deleting node with right child
-    else if (delNode->lchild == NULL && delNode->rchild != NULL)
-    {
-        // node to be deleted is left child of its parent and node itself doesn't have any left child
-        printf("\nNode has one child");
-
-        if(delNode==Parent) // if deleting node with one child is parent
-                Parent = delNode->rchild;
-        // deleting other nodes with one child
-        else if (element < delNodeParent->data)
-            delNodeParent->lchild = delNode->rchild;
-        else
-            delNodeParent->rchild = delNode->rchild;
-
-        free(delNode);
-
+    else if (root->rchild == NULL) {
+        struct Node* temp = root->lchild;
+        free(root);
+        return temp;
     }
 
-    // case3 : node with 2 children
-    else if (delNode->lchild != NULL && delNode->rchild != NULL)
-    {
-        //finding min in right subtree to replace it's value with deleting node's value
-        struct Node *child = findMin(delNode->rchild);
-        
-        printf("\n%d is the value to replaced to %d",child->data,delNode->data);
-    
-        // saving existing address of right and left children
-        struct Node *l =  delNode->lchild;
-        struct Node *r =  delNode->rchild;
-        
-        //replacing value of delNode with its child's values
-        *delNode = *child; 
-        
-        // restoring previous address of right and left children
-        delNode->lchild = l; 
-        delNode->rchild = r;
-        
-        // find parent of min node in right subtree and assign it to NULL
-        delNodeParent->lchild = NULL;
-        free(child);
-    }
-    no_of_nodes--;
-    if(no_of_nodes==0){
-        Parent = NULL;
-    }
+    // node with two children:
+    // Get the inorder successor
+    // (smallest in the right subtree)
+    struct Node* temp = findMin(root->rchild);
+
+    // Copy the inorder
+    // successor's content to this node
+    root->data = temp->data;
+
+    // Delete the inorder successor
+    root->rchild = delete(root->rchild, temp->data);
+    return root;
 }
+
 void main()
 {
     int menuInput = 1, element;
@@ -290,10 +255,19 @@ void main()
             }
             case 2:
             {
+                if(Parent==NULL){
+                    printf("\nNo tree found");
+                    break;
+                }
                 int element;
                 printf("\nEnter element to delete : ");
                 scanf("%d", &element);
-                delete (element);
+                if(search(element)==NULL){
+                    printf("\n%d not found", element);
+                }
+                else{
+                    delete (Parent,element);
+                }
                 break;
             }
             case 3:
