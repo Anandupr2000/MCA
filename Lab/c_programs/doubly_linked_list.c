@@ -78,9 +78,9 @@ void insert(int element, int pos)
     if (pos == 1)
     {
         //here nxt is considered to be first node before which newnode is inserted
-        printf("\nCreating new doubly linked list");
         if (head == NULL)
-        {
+        {        
+            printf("\nCreating new doubly linked list");
             head = newnode;
         }
         else
