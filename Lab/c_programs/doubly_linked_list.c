@@ -146,6 +146,15 @@ void insert(int element, int pos)
         }
     printf("\nMaxlength = %d", maxlength);
 }
+//Insert at middle
+void insertAtMiddle(int element){
+   int middle;
+   if(maxlength%2)
+       middle = maxlength/2;
+   else
+       middle = (maxlength/2)+1;
+   insert(element, middle);
+}
 //searching element
 void search(int element)
 {
