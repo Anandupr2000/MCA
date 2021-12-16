@@ -146,14 +146,30 @@ void insert(int element, int pos)
         }
     printf("\nMaxlength = %d", maxlength);
 }
-//Insert at middle
-void insertAtMiddle(int element){
+//Element at middle
+void elementAtMiddle(int element){
    int middle;
    if(maxlength%2)
        middle = maxlength/2;
    else
        middle = (maxlength/2)+1;
-   insert(element, middle);
+   
+    int count = 1;
+    struct Node *searchedNode = head;
+    printf("\nSearching.");
+    while (searchedNode != NULL)
+    {
+        if (count == middle)
+        {
+            printf("\n%d found at position %d.", searchedNode->data, count);
+            break;
+        }
+        else{
+            printf(".");
+        }
+        searchedNode = searchedNode->next;
+        count++;
+    }
 }
 //searching element
 void search(int element)
