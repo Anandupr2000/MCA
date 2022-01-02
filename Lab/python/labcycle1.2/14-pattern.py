@@ -7,4 +7,3 @@ for i in range(1,limit+1):
 		for j in range(limit+1-i):		
 			print(f" * ",end="")
 	print("") 
-		 
