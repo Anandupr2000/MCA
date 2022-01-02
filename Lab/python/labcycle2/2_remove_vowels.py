@@ -4,3 +4,4 @@ for i in stringList:
         if(j not in ["a","e","i","o","u","A","E","I","O","U"]):
             print(j,end="")
     print("",end=" ")
+print("")
