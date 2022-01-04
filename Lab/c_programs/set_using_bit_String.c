@@ -1,5 +1,6 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 int superSet[20],superSetSize=0,
 setA[20],setASize=0,
@@ -145,10 +146,33 @@ int checkBitStringStatus(){
     return 1;
 }
 void getSet(int arr[],int setSize){
-	int i;
+	int i,temp;
     printf("\nEnter set\n");
     for(i=0;i<setSize;i++){
-        scanf("%d",&arr[i]);
+        if(i==0)
+            scanf("%d",&arr[i]);
+        else
+        {
+            scanf("%d",&temp);
+            int flag=0;
+            while(flag==0)
+            {
+                for(int j=i-1;j>=0;j--)
+                {
+                    if(arr[j]==temp)
+                    {
+                        printf("\n%d already entered !!!\n\nEnter a new one : ",temp);
+                        scanf("%d", &temp);
+                    }
+                    else
+                    {
+                        // if element is unique, enter it to array and exit
+                        arr[i]=temp;
+                        flag=1;
+                    }
+                }
+            }
+        }
     }
 }
 
