@@ -86,14 +86,14 @@ void leftToRightRotate(struct Node *root){
         printf("\ntree starting found");
         p = P; // setting root as parent
         p->rchild = grandParent;
-        grandParent->rchild = grandParent->lchild = NULL;
+        // grandParent->rchild = grandParent->lchild = NULL;
         grandParent->parent = P;
     }
     else{
         printf("\n %d is not tree starting",grandParent->data);
         struct Node *temp = grandParent->parent;
         P->rchild = grandParent;
-        grandParent->rchild = grandParent->lchild = NULL;
+        // grandParent->rchild = grandParent->lchild = NULL;
             // if (item < root->data)
 
         if(P->data < temp->data)    temp->lchild = P;
@@ -111,7 +111,6 @@ void leftToLeftRotate(struct Node *root){
     root->lchild = P;
     P->parent = root;
     P->rchild = NULL;
-    // P->lchild = NULL;
 }
 // used for tree with right child then left child
 void rightToRightRotate(struct Node *root){
@@ -123,7 +122,6 @@ void rightToRightRotate(struct Node *root){
     root->rchild = P;
     P->parent = root;
     P->lchild = NULL;
-    // P->rchild = NULL;
 }
 
 // used for right skewed tree
@@ -154,23 +152,85 @@ void rightToLeftRotate(struct Node *root){
 }
 
 // fn for adding and removing nullnodes
-void nullize(struct Node *root,bool addNullNode){
-    if(addNullNode){
-        if(root!=NULL){
-            // null black nodes
-            struct Node *nullNode = malloc(sizeof(struct Node));
-            nullNode->color = 'b';
-            root->rchild = root->lchild = nullNode;
-            return;
-        }
+// void nullize(struct Node *root,bool addNullNode){
+//     if(addNullNode){
+//         if(root!=NULL){
+//             // null black nodes
+//             struct Node *nullNode = malloc(sizeof(struct Node));
+//             nullNode->color = 'b';
+//             root->rchild = root->lchild = nullNode;
+//             return;
+//         }
 
-    }
-    else{
+//     }
+//     else{
 
-    }
-}
+//     }
+// }
+// /*Inserting a node*/
+// struct Node *insert(struct Node *root, int item) 
+// {
+//     struct Node *temp;
+//     if (root == NULL)
+//     {
+//         struct Node *node = malloc(sizeof(struct Node));
+//         struct Node *nullNode = malloc(sizeof(struct Node));
+
+//         nullNode->color = 'b';
+        
+//         if (no_of_nodes == 0){
+//             p = node;
+//             node->color = 'b';
+//             node->data = item;
+//             node->parent = NULL;
+//             node->lchild = node->rchild = nullNode;
+//             nullNode->parent = node;
+//         }
+//         else {
+//             // ((root->parent)->parent)->color = 'r';
+//             // ((root->parent)->parent)->data = item;
+//             // (root->parent)->lchild = (root->parent)->rchild = nullNode;
+//             node->color = 'r';
+//             node->data = item;
+//             node->rchild = node->lchild = nullNode;
+//             nullNode->parent = node;
+//         }
+
+//         no_of_nodes++;
+//         return node; /*return new node if tree is empty and further insert recursion will not occur*/
+//     }
+//     // printf("\n%d is parent",root->data);
+//     // if(root->parent!=NULL) root = root->parent;
+
+//     if (item < root->data)
+//     {
+//         // if(root->data == 0) printf("\nnode have no data");
+//         temp = insert(root->lchild, item);
+//         // printf("\n%d is pa");
+//         // root->lchild = temp;
+//         // temp->parent = root;
+//         if(root->parent != NULL){
+//             (root->parent)->lchild = temp;
+//             temp->parent = root->parent;
+//         }
+//     }
+//     else
+//     {
+//         temp = insert(root->rchild, item);
+//         // (root->parent)->rchild = temp;
+//         // temp->parent = (root->parent);
+//         // root->rchild = temp;
+//         // temp->parent = root;
+//         if(root->parent != NULL){
+//             (root->parent)->rchild = temp;
+//             temp->parent = (root->parent);
+//         }
+//     }
+//     return root;
+// }
+
 /*Inserting a node*/
-struct Node *insert(struct Node *root, int item) 
+struct Node* insert(struct Node *root, int item) 
 {
     struct Node *temp;
     if (root == NULL)
@@ -240,6 +300,7 @@ int inorder(struct Node *root)
         inorder(temp->rchild);
     }
 }
+
 struct Node* sibiling(struct Node *root){
     if(root->data < (root->parent)->data){
         return (root->parent)->rchild;
@@ -252,71 +313,64 @@ struct Node* sibiling(struct Node *root){
 void recolor(struct Node *root){
     printf("\nInside recolor fn");
     struct Node *grandParent = ((root->parent)->parent), *P = root->parent , *uncle=sibiling(root->parent);
-    if(grandParent!=NULL) {
-        grandParent->color = 'r';
-        P->color = 'b';
-    }
+    if(grandParent!=NULL) grandParent->color = 'r';
     if(uncle!=NULL) uncle->color = P->color = 'b';
 }
 // validate fn for adjusting tree height
-void validateInsertion(struct Node* root){
-    
-    // if tree start is red or red-red conflict (root and root's parent is red)
-    if((p!=NULL && p->color == 'r') || (root->parent != NULL && root->parent->color == 'r' && root->color=='r'))
+void validateTree(struct Node* root){
+
+    printf("\n%d is root",p->data);
+    // case A if tree starting is red
+    if(p->color=='r')
     {
-        // case A if tree starting is red
-        if(p->color=='r')
-        {
-            p->color = 'b';
+        p->color = 'b';
+        return;
+    }
+
+    if (root->parent != NULL && (root->parent)->parent != NULL)
+    {
+        struct Node *grandParent = ((root->parent)->parent), *P = root->parent , *uncle=sibiling(root->parent);
+
+        // case B red uncle condition
+        if(uncle!=NULL && uncle->color=='r'){
+            recolor(root);
+            // validateTree(grandParent);
             return;
         }
-        if (root->parent != NULL && (root->parent)->parent != NULL)
-        {
-            struct Node *grandParent = ((root->parent)->parent), *P = root->parent ,*uncle=sibiling(root->parent);
-            
-            // case B red uncle condition
-            if(uncle!=NULL && uncle->color=='r'){
-                printf("\n%d is uncle",uncle->data);
-                recolor(root);
-                validateInsertion(grandParent);
-                return;
-            }
+        // case C no uncle or black uncle condition
 
-            // case C
+        if(uncle==NULL || uncle->color=='b')
+        {
             // if subtree is right skewed (containing only nodes with right child) and uncle is null
-            // if(root->data >= P->data && P->data >= grandParent->data  && grandParent->lchild==NULL){
-            if(root->data >= P->data && P->data >= grandParent->data  && uncle==NULL){
-                printf("right skewed");
+            if(root->data >= P->data && P->data >= grandParent->data ){
+                printf("\nright skewed");
                 recolor(root);
+                // printf("");
                 rightToLeftRotate(root);
             }
             // if subtree is left skewed (containing only nodes with left child) and uncle is null
-            // if(root->data < P->data && P->data < grandParent->data && grandParent->rchild==NULL){
-            if(root->data < P->data && P->data < grandParent->data && uncle==NULL){
-                printf("left skewed");
+            if(root->data < P->data && P->data < grandParent->data ){
+                printf("\nleft skewed");
                 recolor(root);
                 leftToRightRotate(root);
             }
-            // if parent is left child and root is right child and uncle is null
-            if(root->data >= P->data && P->data < grandParent->data && uncle==NULL){
-                printf("\nparent is left child and root is right child");
-                // making subtree with leaf root left skewed
-                // rightToRightRotate(root);
-                leftToLeftRotate(root);
-                printf("\nleftToLeftRotate successfull");
-                // rotating left to decrease height
-                // printf("\n%d is right child",(root->rchild)->data);
-                validateInsertion(root->lchild); // after leftToLeftRotate() root's parent will be its left child
-            }
-            // if parent is right child and  root is left child and uncle is null
-            if(root->data < P->data && P->data >= grandParent->data && uncle==NULL){
-                printf("\nparent is right child and  root is left child");
+            // if root is right child and parent is left child and uncle is null
+            if(root->data >= P->data && P->data < grandParent->data ){
+                printf("\nroot is right child and parent is left child");
                 // making subtree with leaf root right skewed
-                // leftToLeftRotate(root);
                 rightToRightRotate(root);
                 printf("\nrightToRightRotate successfull");
                 // rotating left to decrease height
-                validateInsertion(root->rchild); // after rightToRightRotate() root's parent will be its right child
+                // validateTree(root->rchild); // after rightToRightRotate() root's parent will be its child
+            }
+            // if root is left child and parent is right child and uncle is null
+            if(root->data < P->data && P->data >= grandParent->data ){
+                printf("\nroot is left child and parent is right child");
+                // making subtree with leaf root left skewed
+                leftToLeftRotate(root);
+                printf("\nleftToLeftRotate successfull");
+                // rotating left to decrease height
+                // validateTree(root->lchild); // after leftToLeftRotate() root's parent will be its child
             }
         }
     }
@@ -375,7 +429,7 @@ void main()
                 scanf("%d", &element);
                 // insert(element);
                 insert(p, element);
-                validateInsertion(search(element));
+                validateTree(search(element));
                 break;
             }
             case 2:

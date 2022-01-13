@@ -105,7 +105,8 @@ void display(struct Node *node, int level)
         display(node->lchild, level + 1);
     }
 }
-struct Node *insert(struct Node *root, int item) /*Insert a node*/
+/*Insert a node*/
+struct Node *insert(struct Node *root, int item) 
 {
     if (root == NULL)
     {
