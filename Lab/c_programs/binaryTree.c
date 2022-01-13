@@ -190,36 +190,37 @@ struct Node* delete(struct Node* root, int key)
     // If the key to be deleted
     // is greater than or equal to the root's
     // key, then it lies in right subtree
-    else if (key >= root->data)
+    else if (key > root->data)
         root->rchild = delete(root->rchild, key);
  
     // if key is same as root's key,
     // then This is the node
     // to be deleted
+    else {
+        // node with only one child or no child
+        if (root->lchild == NULL) {
+            struct Node* temp = root->rchild;
+            free(root);
+            return temp;
+        }
+        else if (root->rchild == NULL) {
+            struct Node* temp = root->lchild;
+            free(root);
+            return temp;
+        }
 
-    // node with only one child or no child
-    if (root->lchild == NULL) {
-        struct Node* temp = root->rchild;
-        free(root);
-        return temp;
+        // node with two children:
+        // Get the inorder successor
+        // (smallest in the right subtree)
+        struct Node* temp = findMin(root->rchild);
+
+        // Copy the inorder
+        // successor's content to this node
+        root->data = temp->data;
+
+        // Delete the inorder  successor
+        root->rchild = delete(root->rchild, temp->data);
     }
-    else if (root->rchild == NULL) {
-        struct Node* temp = root->lchild;
-        free(root);
-        return temp;
-    }
-
-    // node with two children:
-    // Get the inorder successor
-    // (smallest in the right subtree)
-    struct Node* temp = findMin(root->rchild);
-
-    // Copy the inorder
-    // successor's content to this node
-    root->data = temp->data;
-
-    // Delete the inorder successor
-    root->rchild = delete(root->rchild, temp->data);
     return root;
 }
 
