@@ -322,6 +322,80 @@ void validateInsertion(struct Node* root){
     }
 }
 
+struct Node *findMin(struct Node *root)
+{
+    struct Node *temp = root;
+
+    //travesing tree to leftmost element
+    while (temp->lchild != NULL)
+    {
+        // assign node to parent node of deleting node which is used in case 3 of delete fn
+        delNodeParent =temp; 
+
+        temp = temp->lchild;
+    }
+    return temp;
+}
+
+// fn for ordinary bst deletion
+struct Node* delete(struct Node* root, int key)
+{
+    // base case
+    if (root == NULL){
+        no_of_nodes--;
+        if(no_of_nodes==0){
+            p=NULL; // checking root if tree is present
+        }
+        return root;
+    }
+ 
+    // If the key to be deleted
+    // is smaller than the root's
+    // key, then it lies in left subtree
+    if (key < root->data)
+        root->lchild = delete(root->lchild, key);
+ 
+    // If the key to be deleted
+    // is greater than or equal to the root's
+    // key, then it lies in right subtree
+    else if (key >= root->data)
+        root->rchild = delete(root->rchild, key);
+ 
+    // if key is same as root's key,
+    // then This is the node
+    // to be deleted
+
+    // node with only one child or no child
+    if (root->lchild == NULL) {
+        struct Node* temp = root->rchild;
+        free(root);
+        return temp;
+    }
+    else if (root->rchild == NULL) {
+        struct Node* temp = root->lchild;
+        free(root);
+        return temp;
+    }
+
+    // node with two children:
+    // Get the inorder successor
+    // (smallest in the right subtree)
+    struct Node* temp = findMin(root->rchild);
+
+    // Copy the inorder
+    // successor's content to this node
+    root->data = temp->data;
+
+    // Delete the inorder successor
+    root->rchild = delete(root->rchild, temp->data);
+    return root;
+}
+
+void validateDeletion(struct Node *node){
+    printf("\nInside validateDeletion() fn");
+    // if node is red exit validation
+}
+
 // void displayParents(int element){
 //     struct Node *root = p;
 //     while(root!= NULL){
@@ -380,19 +454,24 @@ void main()
             }
             case 2:
             {
-                // if(p==NULL){
-                //     printf("\nNo tree found");
-                //     break;
-                // }
-                // int element;
-                // printf("\nEnter element to delete : ");
-                // scanf("%d", &element);
-                // if(search(element)==NULL){
-                //     printf("\n%d not found", element);
-                // }
-                // else{
-                //     delete (element);
-                // }
+                if(p==NULL){
+                    printf("\nNo tree found");
+                    break;
+                }
+                int element; char nodeColor; bool leaf = false;
+                printf("\nEnter element to delete : ");
+                scanf("%d", &element);
+                struct Node *node= search(element);
+                if(node==NULL){
+                    printf("\n%d not found", element);
+                }
+                else{
+                    if(node->lchild == NULL && node->rchild == NULL) leaf = true;
+                    nodeColor = node->color;
+                    delete (p,element);
+                    // validation is performed only when deleted leaf node is not red 
+                    if(leaf && nodeColor!='r')  validateDeletion(node);
+                }
                 break;
             }
             case 3:
