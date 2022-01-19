@@ -10,7 +10,7 @@ struct Node
     struct Node *parent;
     struct Node *rchild;
     struct Node *lchild;
-}*p = NULL,*delNode = NULL;
+}*p = NULL,*delNodeParent = NULL;
 
 // fn for searching tree
 struct Node *search(int element)
@@ -31,7 +31,7 @@ struct Node *search(int element)
             nodeSearched =  root;
             break;
         }
-        // delNodeParent = root; //saving current node as parent of next node for using deletion operation
+        delNodeParent = root; //saving current node as parent of next node for using deletion operation
 
         // deciding which node to traverse next
         if (element < root->data)
@@ -85,15 +85,15 @@ void leftToRightRotate(struct Node *root){
     {
         printf("\ntree starting found");
         p = P; // setting root as parent
-        grandParent->lchild = P->rchild = NULL;
         p->rchild = grandParent;
+        grandParent->rchild = grandParent->lchild = NULL;
         grandParent->parent = P;
     }
     else{
         printf("\n %d is not tree starting",grandParent->data);
         struct Node *temp = grandParent->parent;
-        grandParent->lchild = P->rchild;
         P->rchild = grandParent;
+        grandParent->rchild = grandParent->lchild = NULL;
             // if (item < root->data)
 
         if(P->data < temp->data)    temp->lchild = P;
@@ -134,8 +134,8 @@ void rightToLeftRotate(struct Node *root){
     {
         printf("\ntree starting found");
         p = P; // setting root as parent
-        grandParent->rchild = p->lchild;
         p->lchild = grandParent;
+        grandParent->rchild = grandParent->lchild = NULL;
         grandParent->parent = P;
         P->parent = NULL;
     }
@@ -143,8 +143,8 @@ void rightToLeftRotate(struct Node *root){
         printf("\n %d is not tree starting",grandParent->data);
         struct Node *temp = grandParent->parent;
         P->parent = temp;
-        grandParent->rchild = P->lchild ;
         P->lchild = grandParent;
+        grandParent->rchild = grandParent->lchild = NULL;
         grandParent->parent = P;
             // if (item < root->data)
 
@@ -226,22 +226,6 @@ void display(struct Node *node, int level)
         display(node->lchild, level + 1);
     }
 }
-
-struct Node *findMin(struct Node *root)
-{
-    struct Node *temp = root;
-
-    //travesing tree to leftmost element
-    while (temp->lchild != NULL)
-    {
-        // assign node to parent node of deleting node which is used in case 3 of delete fn
-        // delNodeParent =temp; 
-
-        temp = temp->lchild;
-    }
-    return temp;
-}
-
 int inorder(struct Node *root)
 {
     struct Node *temp = root;
@@ -289,12 +273,10 @@ void validateInsertion(struct Node* root){
         if (root->parent != NULL && (root->parent)->parent != NULL)
         {
             struct Node *grandParent = ((root->parent)->parent), *P = root->parent ,*uncle=sibiling(root->parent);
-            bool isBlackUncle = true;
-
-            if(uncle!=NULL) isBlackUncle = (uncle->color == 'b')? true:false; 
+            
             // case B red uncle condition
             if(uncle!=NULL && uncle->color=='r'){
-                printf("\n%d is red node",uncle->data);
+                printf("\n%d is uncle",uncle->data);
                 recolor(root);
                 validateInsertion(grandParent);
                 return;
@@ -303,121 +285,41 @@ void validateInsertion(struct Node* root){
             // case C
             // if subtree is right skewed (containing only nodes with right child) and uncle is null
             // if(root->data >= P->data && P->data >= grandParent->data  && grandParent->lchild==NULL){
-            
-            if(uncle==NULL || isBlackUncle)
-            {
-                // print("\n");
-                // if subtree is right skewed
-                if(root->data >= P->data && P->data >= grandParent->data){
-                    printf("right skewed");
-                    recolor(root);
-                    rightToLeftRotate(root);
-                }
-                // if subtree is left skewed (containing only nodes with left child)
-                // if(root->data < P->data && P->data < grandParent->data && grandParent->rchild==NULL){
-                if(root->data < P->data && P->data < grandParent->data){
-                    printf("left skewed");
-                    recolor(root);
-                    leftToRightRotate(root);
-                }
-                // if parent is left child and root is right child 
-                if(root->data >= P->data && P->data < grandParent->data){
-                    printf("\nparent is left child and root is right child");
-                    // making subtree with leaf root left skewed
-                    // rightToRightRotate(root);
-                    leftToLeftRotate(root);
-                    printf("\nleftToLeftRotate successfull");
-                    // rotating left to decrease height
-                    // printf("\n%d is right child",(root->rchild)->data);
-                    validateInsertion(root->lchild); // after leftToLeftRotate() root's parent will be its left child
-                }
-                // if parent is right child and  root is left child
-                if(root->data < P->data && P->data >= grandParent->data){
-                    printf("\nparent is right child and  root is left child");
-                    // making subtree with leaf root right skewed
-                    // leftToLeftRotate(root);
-                    rightToRightRotate(root);
-                    printf("\nrightToRightRotate successfull");
-                    // rotating left to decrease height
-                    validateInsertion(root->rchild); // after rightToRightRotate() root's parent will be its right child
-                }
+            if(root->data >= P->data && P->data >= grandParent->data  && uncle==NULL){
+                printf("right skewed");
+                recolor(root);
+                rightToLeftRotate(root);
+            }
+            // if subtree is left skewed (containing only nodes with left child) and uncle is null
+            // if(root->data < P->data && P->data < grandParent->data && grandParent->rchild==NULL){
+            if(root->data < P->data && P->data < grandParent->data && uncle==NULL){
+                printf("left skewed");
+                recolor(root);
+                leftToRightRotate(root);
+            }
+            // if parent is left child and root is right child and uncle is null
+            if(root->data >= P->data && P->data < grandParent->data && uncle==NULL){
+                printf("\nparent is left child and root is right child");
+                // making subtree with leaf root left skewed
+                // rightToRightRotate(root);
+                leftToLeftRotate(root);
+                printf("\nleftToLeftRotate successfull");
+                // rotating left to decrease height
+                // printf("\n%d is right child",(root->rchild)->data);
+                validateInsertion(root->lchild); // after leftToLeftRotate() root's parent will be its left child
+            }
+            // if parent is right child and  root is left child and uncle is null
+            if(root->data < P->data && P->data >= grandParent->data && uncle==NULL){
+                printf("\nparent is right child and  root is left child");
+                // making subtree with leaf root right skewed
+                // leftToLeftRotate(root);
+                rightToRightRotate(root);
+                printf("\nrightToRightRotate successfull");
+                // rotating left to decrease height
+                validateInsertion(root->rchild); // after rightToRightRotate() root's parent will be its right child
             }
         }
     }
-}
-
-struct Node *findMin(struct Node *root)
-{
-    struct Node *temp = root;
-
-    //travesing tree to leftmost element
-    while (temp->lchild != NULL)
-    {
-        // assign node to parent node of deleting node which is used in case 3 of delete fn
-        // delNode =temp; 
-
-        temp = temp->lchild;
-    }
-    return temp;
-}
-
-// fn for ordinary bst deletion
-struct Node* delete(struct Node* root, int key)
-{
-    // base case
-    if (root == NULL){
-        no_of_nodes--;
-        if(no_of_nodes==0){
-            p=NULL; // checking root if tree is present
-        }
-        return root;
-    }
- 
-    // If the key to be deleted
-    // is smaller than the root's
-    // key, then it lies in left subtree
-    if (key < root->data)
-        root->lchild = delete(root->lchild, key);
- 
-    // If the key to be deleted
-    // is greater than or equal to the root's
-    // key, then it lies in right subtree
-    else if (key >= root->data)
-        root->rchild = delete(root->rchild, key);
- 
-    // if key is same as root's key,
-    // then This is the node
-    // to be deleted
-
-    // node with only one child or no child
-    if (root->lchild == NULL) {
-        struct Node* temp = root->rchild;
-        free(root);
-        return temp;
-    }
-    else if (root->rchild == NULL) {
-        struct Node* temp = root->lchild;
-        free(root);
-        return temp;
-    }
-
-    // node with two children:
-    // Get the inorder successor
-    // (smallest in the right subtree)
-    struct Node* temp = findMin(root->rchild);
-
-    // Copy the inorder
-    // successor's content to this node
-    root->data = temp->data;
-
-    // Delete the inorder successor
-    root->rchild = delete(root->rchild, temp->data);
-    return root;
-}
-
-void validateDeletion(struct Node *node){
-    printf("\nInside validateDeletion() fn");
-    // if node is red exit validation
 }
 
 // void displayParents(int element){
@@ -498,25 +400,6 @@ struct Node* delete(struct Node* root, int key)
     return root;
 }
 
-void validateDeletion(struct Node *root){
-
-    struct Node *P = root->parent,*grandparent =(root->parent)->parent, *uncle = sibiling(root->parent);
-    printf("\n%d is node to be deleted",root->data);
-    printf("\n%c is node's color",root->color);
-    if(root->parent!=NULL)  printf("\n%d is node's parent",(root->parent)->data);
-    if(root->lchild!=NULL)  printf("\n%d is node's parent",(root->lchild)->data);
-    if(root->rchild!=NULL)  printf("\n%d is node's parent",(root->rchild)->data);
-
-    // if(root->lchild==NULL){
-    //     printf("\nright skewed");
-        
-    // }
-
-    // case1
-    if(root->color=='r') {
-        
-    }
-}
 void main()
 {
     system("clear");
@@ -548,35 +431,23 @@ void main()
                 // insert(element);
                 insert(p, element);
                 validateInsertion(search(element));
-                display(p,0);
                 break;
             }
             case 2:
             {
-                if(p==NULL){
-                    printf("\nNo tree found");
-                    break;
-                }
-                int element;
-                struct Node *node;
-                printf("\nEnter element to delete : ");
-                scanf("%d", &element);
-                node = search(element);
-                if(node==NULL){
-                    printf("\n%d not found", element);
-                }
-                else{
-                    delNode = malloc(sizeof(struct Node));
-                    *delNode = *node;
-                    // delNode->data = node->data;
-                    // delNode->color = node->color;
-                    // delNode->rchild = node->rchild;
-                    // delNode->lchild = node->lchild;
-                    // delNode->parent = node->parent;
-
-                    delete (p,element);
-                    validateDeletion(delNode);
-                }
+                // if(p==NULL){
+                //     printf("\nNo tree found");
+                //     break;
+                // }
+                // int element;
+                // printf("\nEnter element to delete : ");
+                // scanf("%d", &element);
+                // if(search(element)==NULL){
+                //     printf("\n%d not found", element);
+                // }
+                // else{
+                //     delete (element);
+                // }
                 break;
             }
             case 3:
