@@ -6,6 +6,6 @@ for i in range(0,len(string)):
         found = True
         break
 if found:
-    print(f"{c} found at index position {i} of {string}")
+    print(f"{c} found at index position {i+1} of {string}")
 else:
     print(f"{c} not found")

@@ -12,4 +12,4 @@ while True:
 			lst.append("over")
 		else:		
 			lst.append(num)
-print(f"List {num} created => {lst}",end="\n\n")
+print(f"List created => {lst}",end="\n\n")
