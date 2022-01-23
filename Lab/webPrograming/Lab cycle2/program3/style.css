@@ -1,0 +1,25 @@
+#table{
+    width:100%;
+    text-align: left;
+    font-family: sans-serif;
+}
+table,th,td{
+    border:solid 1px grey;
+    border-collapse:collapse; /* for unified border */
+}
+th{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #b22222;
+}
+td{
+    padding: 8px;
+}
+tr:hover{
+    background:burlywood;
+}
+/* coloring background of even tr*/
+tr:nth-child(even){
+    background-color:#f2f2f2;
+    /*background-color:#bb5353;*/
+}

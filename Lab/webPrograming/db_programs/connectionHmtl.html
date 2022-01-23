@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Connecting to server...</h1>
+
+
+    <form action="insert.php" method="post">
+        Present Data:<br>
+        <!-- Use a table here!! -->
+        <?php
+        include "dbconnect.php";
+        $sql = "SELECT * FROM mytable;";
+        $result = $conn->query($sql);
+        while($row=mysqli_fetch_assoc($result))
+        {
+        echo $row["rollnum"]." ".$row["name"]."<br>";
+        }
+        ?>
+        New Data:<br>
+        Name: <input type="text" name="Name"><br>
+        Roll Number: <input type="text" name="RollNumber"><br>
+        <input type="submit" value="Insert">
+        
+        </form>
+        
+    <!-- <?php 
+        $host = "117.232.108.35";
+    $userName = "21mca01";
+    $pwd = "21mca01";
+    
+     $con=false;
+    $con=mysqli_connect($host,$userName,$pwd);
+    $db=mysqli_select_db($con,"projectdb");
+     $db=false; 
+    if (!$con) {
+     echo "Error in Connection : " . mysqli_connect_error();
+     exit();
+    }
+    else if(!$db) die("Database not found");
+    else{
+        echo "<script>alert('Sucess Connection')</script>";
+    } 
+    
+     echo "Sucess Connection"; 
+    ?> -->
+</body>
+</html>

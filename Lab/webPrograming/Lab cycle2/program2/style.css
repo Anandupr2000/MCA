@@ -1,0 +1,16 @@
+/* element selector */
+p{
+    background-color:aquamarine
+}
+/* id selector */
+#idDemo{
+    background-color:rgb(219, 173, 88)
+}
+/* class selector */
+.classDemo{
+    background-color:rgb(219, 66, 66)
+}
+/* group selector */
+h4,div{
+    background-color: blueviolet;
+}
