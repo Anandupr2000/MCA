@@ -19,7 +19,7 @@
         $result = $conn->query($sql);
         while($row=mysqli_fetch_assoc($result))
         {
-        echo $row["rollnum"]." ".$row["name"]."<br>";
+            echo $row["rollnum"]." ".$row["name"]."<br>";
         }
         ?>
         New Data:<br>

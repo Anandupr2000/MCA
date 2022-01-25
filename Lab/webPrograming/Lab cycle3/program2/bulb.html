@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bulb</title>
+    <style>
+        body {
+            height: 1000px;
+            width: 1000px;
+        }
+        #button{
+            background:rgb(82, 243, 82);
+            width: 50px;
+            border-radius:5px;
+    }
+    img{
+        height: 200px;
+        width: 100px;
+    }
+    </style>
+</head>
+<body>
+    <button id="button">Off</button>
+    <img id="image" src="./pic_bulboff.gif" alt="" srcset="">
+    <script>
+        btn = document.getElementById("button");
+        image = document.getElementById("image")
+        
+        btn.addEventListener("click",()=>{
+            //body.setInnerText(btn.getText())
+            //console.log(btn.innerHTML)
+            if(btn.innerHTML=="Off"){
+                btn.innerHTML = "On"
+                btn.style.background = "red"
+                image.src="./pic_bulbon.gif"
+            }
+            else if (btn.innerHTML=="On"){
+                btn.innerHTML = "Off"
+                image.src="./pic_bulboff.gif"
+                btn.style.background = "green"
+            }
+        })
+    </script>
+</body>
+</html>
