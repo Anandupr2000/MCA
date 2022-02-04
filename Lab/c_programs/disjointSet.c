@@ -13,7 +13,7 @@ void displayArray(){
 		printf(" %d",setArr[i]);	
 	}
 
-	printf("\nArray representative elements are : ");
+	printf("\nSet representative elements are : ");
 	for(int i=0;i<setRepLength;i++){
 		printf(" %d",setRep[i]);	
 	}
