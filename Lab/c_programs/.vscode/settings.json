@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.java": "java",
+        "*.php": "php",
+        "*.py": "python",
+        "*.html": "html",
+        "*.gradle": "gradle",
+        "stdlib.h": "c"
+    }
+}

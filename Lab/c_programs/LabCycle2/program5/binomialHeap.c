@@ -1,3 +1,4 @@
+#include<stdlib.h>
 #include<stdio.h>
 #include<malloc.h>
 
@@ -150,7 +151,7 @@ struct node* BIN_HEAP_EXTRACT_MIN(struct node* H1) {
     struct node* x = H1;
     struct node *Hr;
     struct node* p;
-    Hr = NULL;
+     Hr = NULL;
     if (x == NULL) {
         printf("\n Nothing to extract!!!");
         return x;
