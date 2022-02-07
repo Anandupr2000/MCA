@@ -15,9 +15,20 @@ class Time:
         print(f"Time = {self.__hour}:{self.__minute}:{self.__second}")
         
     def __add__(self,time):
-        self.__hour = self.__hour + time.getHour()
-        self.__minute = self.__minute + time.getMinute()
-        self.__second = self.__second + time.getSecond()
+        second = self.__second + time.getSecond()
+        minute = self.__minute + time.getMinute()
+        hour = self.__hour + time.getHour()
+        if second>60:
+            minute+=1
+            second-=60
+        if minute>60:
+            hour+=1
+            minute-=60
+        if hour>24:
+            hour-=24
+        self.__hour = hour
+        self.__minute = minute
+        self.__second = second
         return self
     
         
