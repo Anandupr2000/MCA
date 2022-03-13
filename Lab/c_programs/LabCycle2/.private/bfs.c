@@ -1,60 +1,78 @@
 #include <stdio.h>
-int a[20][20], q[20], visited[20], n, i, j, f = 0, r = -1;
-typedef enum boolean
+#include <stdbool.h>
+int a[20][20],q[10], visited[20], n = 4, i, j, f = 0, r = -1;
+// int a[4][4] = {
+//     {0, 1, 1, 0},
+//     {0, 0, 1, 0},
+//     {1, 0, 0, 1},
+//     {0, 0, 0, 1}
+// };
+
+void enqueue(int v)
 {
-    false,
-    true
-} bool;
-bool visited_dfs[10];
-void bfs(int v)
+    r++;
+    q[r] = v;
+}
+int dequeue()
 {
-    for (i = 1; i <= n; i++)
-        if (a[v][i] && !visited[i])
-            q[++r] = i;
-    if (f <= r)
+    return q[f++];
+}
+bool qIsEmpty(){
+    if(r==9) return true;
+    else return false;
+}
+void bfs(int v, int end)
+{
+    enqueue(v);
+    visited[v] = 1;
+    while (!qIsEmpty())
     {
-        visited[q[f]] = 1;
-        bfs(q[f++]);
+        int w = dequeue();
+        if (w == end)
+            return;
+        for (int i = 0; i < n; i++)
+        {
+            if (a[w][i] == 1 && visited[i] == 0)
+            {
+                enqueue(i);
+                visited[i] = 1;
+            }
+        }
     }
 }
 void bfs_sort()
 {
-    int v,inp;
+    int vertex, inp;
     printf("\n enter the number of vertices:");
     scanf("%d", &n);
-    for (i = 1; i <= n; i++)
-    {
-        q[i] = 0;
-        visited[i] = 0;
-    }
     printf("\n enter graph data for %d vertices in Ajacent matrix form:\n(Enter 1 if edge present else enter 0)\n",n*n);
-    for (i = 1; i <= n; i++)
-        for (j = 1; j <= n; j++){
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++){
             do{
                 printf("\nIs there edge between %d and %d : ",i,j);
                 scanf("%d", &inp);
             }while(inp<0 || inp>1);
             a[i][j] = inp;
         }
-
     printf("\nGraph Ajacent matrix form:\n(1 denote edge is present else 0)\n");
-    for (i = 1; i <= n; i++)
+    for (i = 0; i < n; i++)
     {
-        for (j = 1; j <= n; j++)
-            printf("%d ",a[i][j]);
+        for (j = 0; j < n; j++)
+            printf("%d ", a[i][j]);
         printf("\n");
     }
     printf("\n Enter the starting vertex:");
-    scanf("%d", &v);
-    bfs(v);
-    printf("\n The node which are reachable are:\n");
-    for (i = 1; i <= n; i++)
-        if (visited[i])
-            printf("%d\t", i);
-        else{
-            printf("\n Bfs is not possible\n");
-            break;
-        }
+    scanf("%d", &vertex);
+    for (i = 0; i < n; i++)
+    {
+        q[i] = 0;
+        visited[i] = 0;
+    }
+    printf("\n The node order in which reachable are : \n");
+    bfs(vertex, n);
+    printf("\n");
+    for (int k = 0; k < n; k++)
+            printf("%d ", q[k]);
 }
 void main()
 {
