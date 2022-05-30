@@ -6,6 +6,7 @@
 table,th,td{
     border:solid 1px grey;
     border-collapse:collapse; /* for unified border */
+    /* border-radius: 50%; */
 }
 th{
     padding-top: 20px;

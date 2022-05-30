@@ -7,7 +7,7 @@ def main():
     string1 = input("\nEnter string: ")
     string2 = input("\nEnter string: ")
     l = int(input("\nEnter limit for compare: "))
-    if(compare(string1,string2,l-1)):
+    if(compare(string1,string2,l)):
         print(f"{l} character is same in {string1} and {string2}")
     else:
         print("No similarity found")

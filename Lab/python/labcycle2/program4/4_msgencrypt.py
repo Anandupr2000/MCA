@@ -6,7 +6,7 @@ for letter in msg:
 	if letter == " ":
 		print(" ",end="")
 	elif (ord(letter)+key)>ord("z"):
-		print(chr((ord(letter)+key)-26),end="")
+		print(chr((ord(letter)+key)%26),end="")
 	else:
 		print(chr(ord(letter)+key),end="")
 print("")

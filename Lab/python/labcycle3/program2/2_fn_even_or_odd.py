@@ -1,5 +1,5 @@
 def evenOrOdd(num):
-    if num > 0:
+    if num != 0:
         if num%2 == 0:
             print(f"\n{num} is even")
         else:

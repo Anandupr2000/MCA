@@ -16,7 +16,7 @@ def main():
     #demonstrating cuboid module
     l = int(input("\nEnter length of cuboid : "))
     b = int(input("\nEnter breadth of cuboid : "))
-    h = int(input("\nEnter heigth of cuboid : "))
+    h = int(input("\nEnter height of cuboid : "))
     print(f"\nArea of cuboid with length {l}, breadth {b} and height {h} is {cuboid.surfaceArea(l,b,h)}")
     print(f"\nPerimeter of cuboid with length {l}, breadth {b} and height {h} is {cuboid.perimeter(l,b,h)}")
     

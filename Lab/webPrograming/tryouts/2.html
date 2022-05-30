@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <div >
+        <img id ="image" src="./download.jpg" alt="" srcset="">
+    </div>
+</body>
+<script>
+    var color = "white"
+    document.getElementById("image")
+    .addEventListener("mouseover",()=>{
+        if(color=="white")
+        {
+            document.getElementsByTagName("body")[0].style.background = "red"
+            color="red"
+        }
+        else{
+            document.getElementsByTagName("body")[0].style.background = "white"
+            color="white"
+        }
+    })
+</script>
+</html>

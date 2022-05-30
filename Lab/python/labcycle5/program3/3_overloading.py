@@ -15,22 +15,14 @@ class Time:
         print(f"Time = {self.__hour}:{self.__minute}:{self.__second}")
         
     def __add__(self,time):
-        second = self.__second + time.getSecond()
-        minute = self.__minute + time.getMinute()
-        hour = self.__hour + time.getHour()
-        if second>60:
-            minute+=1
-            second-=60
-        if minute>60:
-            hour+=1
-            minute-=60
-        if hour>24:
-            hour-=24
-        self.__hour = hour
-        self.__minute = minute
-        self.__second = second
+        self.__second = (self.__second + time.getSecond())%60
+        self.__minute = (self.__minute + time.getMinute())%60
+        self.__hour = (self.__hour + time.getHour())%24
         return self
-    
+
+class timePass(Time):
+    def __init__(self, hour, minute, second):
+        super().__init__(hour, minute, second)
         
 def main():
     print("\nEnter first time")
@@ -49,5 +41,9 @@ def main():
     
     t3.showTime()
     
+    print(type(t2.getMinute()))
+    
+    t= timePass(1,3,4)
+    t.showTime()
     
 main()

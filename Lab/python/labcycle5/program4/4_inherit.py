@@ -21,9 +21,9 @@ class python(book):
         self.no_of_pages = no_of_pages
         
     def display(self):
-        # print(f"Book name : {super().title}")
-        # print(f"Book author : {super().author}")
-        # print(f"Book publisher : {super().publisherName}")
+        print(f"Book name : {super().title}")
+        print(f"Book author : {super().author}")
+        print(f"Book publisher : {super().publisherName}")
         print(f"Book price : {self.price}")    
         print(f"Book total pages : {self.no_of_pages}")
         

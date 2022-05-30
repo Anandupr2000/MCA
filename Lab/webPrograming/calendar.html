@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="calender"></div>
+    <script>
+        var initContent = "<table border='1'><thead><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></thead><tbody><tr>"
+        var m=12
+        var date = new Date(2022,m-1)
+        console.log(date)
+        var day = date.getDay()
+        console.log(day)        
+        for(var i=0;i<day;i++){
+            initContent += "<td></td>"
+        }
+        while(date.getMonth()==m-1){
+            initContent+="<td>"+date.getDate()+"</td>"
+            if(date.getDay()==6) initContent+="</tr><tr>"
+            date.setDate(date.getDate()+1)          
+        }
+
+        initContent+="</tr></tbody></table>"
+        document.getElementById("calender").innerHTML = initContent
+    </script>
+</body>
+</html>
