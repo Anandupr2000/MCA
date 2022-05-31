@@ -1,0 +1,68 @@
+1 -  
+// db.student.aggregate([
+//     { $group : { _id:null, numberOfStudents : { $sum: 1 } } },
+//     { $project: { _id: 0 } }
+//   ])
+// or
+// db.student.aggregate([
+//     { $count : "numberOfStudents"}
+//   ])
+
+// 2 - 
+// db.college.aggregate([
+//   { $match : {  District:"Trivandram"}},
+//   { $count : "Colleges in trivandrum "}
+//   ]).pretty();
+
+// 3 - 
+// db.student.aggregate([
+//     {
+//       $lookup:
+//         {
+//           from:"college",
+//           localField: "District",
+//           foreignField: "district",
+//           as: "college details"
+//         }
+//     }
+//   ]).pretty();
+
+// 4 -
+// db.college.aggregate([
+//     { $sort: {"district":1}},
+//     { $project: { _id:0, name:1 ,established_year:1} }
+//   ]).pretty();
+  
+  
+// db.student.update({},{ $unset:})
+
+// 5 
+// db.student.aggregate([
+    // { $sort: {"mark":1}},
+    // { $project: { _id:0, qualification:1 } }
+  // ]).pretty();
+  
+  //6
+  // db.college.aggregate([
+  //   { $sort: { name:1 }}
+  //   ]).pretty();
+// 7
+db.student.aggregate([
+    { 
+      $match: {
+        qualification:{ $elemMatch: { mca:"pass" } }
+      }
+    },
+    { 
+          $group : { 
+            _id:null, 
+            numberOfStudents : { $sum: 1 } 
+          } 
+        },
+    { $project: { _id: 0 } }
+  ]).pretty();
+
+  //8
+  // db.college.aggregate([
+  //   { $sort: { established_year:-1 }}
+  //   ]).pretty();
