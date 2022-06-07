@@ -5,7 +5,9 @@ public class main{
 	public static Map<Integer,String>convertToTreeMap(Map<String,String>hashMap)
 	{
 		Map<Integer,String> treeMap= new TreeMap<>();
+		// System.out.print(hashMap.entrySet());
 		for(Map.Entry<String,String> e:hashMap.entrySet()){
+			// System.out.println(e);
 			treeMap.put(Integer.parseInt(e.getKey()),e.getValue());
 		}
 		return treeMap;
