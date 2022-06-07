@@ -1,0 +1,15 @@
+step1 : Start
+step2 : declare a HashSet collection hashSet with Integer as element type
+step3 : perform step 4,5,6 & 7 using menu
+step4 : read an element and add to collection using hashSet.add()
+step5 : for Integer i in hashSet print i
+step6 : Check emptiness of hashSet using hashSet.Empty() 
+step7 : Print length of hashSet using hashSet.size() 
+step8 : Stop
+
+
+
+step5 : create an object of Iterator,iterator with Integer as element pointing to hashSet
+        and perform following
+        i) while iterator.hasNext() do step ii
+        ii) print the value of iterator.next() 

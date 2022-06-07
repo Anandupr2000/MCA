@@ -1,0 +1,7 @@
+step1 : start
+step2 : declare a Map object map, with both key and value datatype as String
+step3 : Add some value in (String,String) format using map.put()
+step4 : 
+step5 : 
+step6 : 
+step7 : 
