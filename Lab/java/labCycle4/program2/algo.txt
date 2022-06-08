@@ -1,0 +1,6 @@
+step1 : Start
+step2 : Declare a TreeSet<Integer> collection object treeSet
+step3 : add some integer to treeSet using add() fn
+step4 : for int i in treeSet.descendingSet() perform step5
+step5 : print value of i
+step6 : Stop

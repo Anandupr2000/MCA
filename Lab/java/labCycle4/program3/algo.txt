@@ -1,0 +1,5 @@
+Step 1 : Start
+Step 2 : Declare a LinkedHashSet linkedHashSet with String as object type
+Step 3 : add Strings to linkedHashSet using add() fn
+Step 4 : display linkedHashSet
+Step 5 : Stop
