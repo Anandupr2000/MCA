@@ -1,0 +1,12 @@
+
+DROP PROCEDURE showStudentTable;
+
+DELIMITER $$
+
+CREATE PROCEDURE showStudentTable()
+BEGIN
+
+SELECT * FROM student1;
+
+END $$
+DELIMITER ;

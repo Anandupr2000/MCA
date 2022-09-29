@@ -1,0 +1,7 @@
+delimiter $$
+create trigger trg after insert on department
+for each row
+begin
+insert into trgdept values ("A new row has been inserted");
+end $$
+delimiter ;

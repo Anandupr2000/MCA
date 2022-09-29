@@ -1,0 +1,181 @@
+ADBMS LAB CYCLE_1
+
+1(a). DDL Commands:
+Data Definition Language (DDL) - These SQL commands are used for creating, modifying, and dropping
+the structure of database objects. The commands are CREATE, ALTER, DROP, RENAME, and TRUNCATE.
+A. Consider the database for a College. Write Queries to implement the following:
+1. Create a database
+
+	CREATE DATABASE college;
+
+2. Select the current database
+	USE college;
+3. Create the following tables:
+a. Student(roll_no,name,dob,address,phone_no,blood_grp)
+
+	CREATE TABLE student(rollno int primary key,name varchar(20),dob date,house_name varchar(20),place varchar(20),phone_no varchar(20), blood_grp varchar(20));
+
+b. Course(Course_id,Course_name, course_duration)
+
+	CREATE TABLE course(course_id int primary key,course_name varchar(20),couse_duration varchar(20));
+
+4. List all tables in the current database.
+
+	SHOW TABLES;
+
+5. Display the structure of the Student table.
+
+	DESC student;
+
+6. Drop the column blood_grp from Student table.
+
+	ALTER TABLE student DROP COLUMN blood_grp;
+
+7. Add a new column Adar_no to the table Student.
+	
+	ALTER TABLE student ADD COLUMN (Adar_no int(20));
+
+8. Change the datatype of phone_no from varchar to int
+
+	ALTER TABLE student MODIFY COLUMN phone_no int;
+
+9. Drop the tables.
+
+	DROP TABLE student;
+	DROP TABLE course;
+
+10. Delete the database.
+
+	DROP DATABASE college;
+
+B. Consider the database for an organization. Write Queries to implement the following:
+1. Create a database
+
+	CREATE DATABASE organization;
+
+2. Select the current database
+	
+	USE organization;
+
+3. Create the following tables:
+a. Employee(emp_no,emp_name, DOB, address,mobile_no,dept_no,salary)
+
+	CREATE TABLE Employee(emp_no int PRIMARY KEY,emp_name varchar(20),DOB date,address varchar(20), mobile_no int, dept_no int, salary int);
+
+b. Department(dept_no,dept_name, location)
+
+	CREATE TABLE Department (deptno int PRIMARY KEY,dept_name varchar(20),location varchar(20));
+	
+4. List all tables in the current database.
+	
+	SHOW TABLES;
+
+5. Display the structure of the Employee table.
+
+	DESC Employee;
+
+6. Add a new column Designation to the table Employee.
+
+	ALTER TABLE Employee ADD COLUMN (designation varchar(20));
+
+7. Drop the column location from Department table.
+
+	ALTER TABLE Department DROP COLUMN location;
+
+8. Display the structure of the Employee table.
+
+	DESC Employee;
+
+1(b). Constraints
+Constraints are used to make sure that the integrity of data is maintained in the database. Following are
+the most used constraints that can be applied to a table.
+• NOT NULL -restricts a column from having a NULL value
+• UNIQUE -ensures that a field or column will only have unique values
+• PRIMARY KEY -uniquely identifies each record in a database
+• FOREIGN KEY -used to relate two tables
+• CHECK -restrict the value of a column between a range
+• DEFAULT -used to insert a default value into a column
+
+Write queries to implement the following:
+
+1. Create new table Person with attributes PersonID(with constraints NOT NULL,PRIMARY KEY),
+Name (constraints-NOT NULL),Adar(constraints-NOT NULL UNIQUE), Age (constraints
+CHECK>18).
+	
+	CREATE TABLE Person(PersonID int Primary Key, Name varchar(20) NOT NULL,adar int NOT NULL UNIQUE, Age int, CHECK(Age>18));
+
+2. CREATE TABLE Orders with attributes OrderID(with constraints-NOT NULL, PRIMARY KEY),
+OrderNumber(constraints-NOT NULL) and PersonID( set FOREIGN KEY on attribute PersonID
+referencing the column PersonId of Person table)
+
+	CREATE TABLE Orders(orderID int PRIMARY KEY,orderNumber int NOT NULL,PersonID int,FOREIGN KEY(PersonID) REFERENCES Person(PersonID));
+
+3. Display the structure of Person tables.
+
+	DESC Person;
+
+4. Display the structure of Orders tables.
+
+	DESC orders;
+
+ADBMS LAB CYCLE_2
+
+2(a). DML Commands:
+Data Manipulation Language (DML) - These SQL commands are used for storing, retrieving, modifying,
+and deleting data. These commands are: SELECT, INSERT, UPDATE, and DELETE
+Consider the database for an organization. Write Queries to implement the following:
+1. Add 5 rows into the table Employee and Department.
+
+	INSERT INTO Employee VALUES(101,"John","1990-02-12","no152",1462137,1,10000,"professor"),
+				(102,"Mathew","1982-06-21","no168",1421627,1,10000,"professor")
+				(103,"Preethi","1990-04-05","no102",1234612,2,7000,"Clerk")
+				(104,"Rahma","1995-11-11","no192",1241623,3,55000,"Manager")
+				(105,"Anny","1979-04-11","no103",1469210,4,3000,"Peon");
+
+	INSERT INTO Department VALUES(1,"MCA","Block C"),
+					(1,"Mechanical","Block D"),
+					(1,"Civil","Block A"),
+					(1,"BArch","Block B"),
+					(1,"EEE","Block F");
+
+2. Display all the records from the above tables.
+
+	SELECT * FROM Employee;
+	SELECT * FROM Department;
+
+3. Display the emp_no and name of employees from department no 2.
+
+	SELECT emp_no,emp_name FROM Employee WHERE dept_no=2;
+
+4. Display emp_no, emp_name ,designation,deptno and salary of employees in the descending
+order of salary.
+
+	SELECT emp_no,emp_name,dept_no,salary,designation FROM Employee ORDER BY salary DESC;
+
+5. Display the emp_no ,name of employees whose salary is between 2000 and 5000
+
+	SELECT emp_no,emp_name FROM Employee WHERE salary BETWEEN 2000 and 5000;
+
+6. Display the designations without duplicate values.
+
+	SELECT Designation FROM Employee GROUP BY designation;
+
+7. Change the salary of employees to 45000 whose designation is 'Manager'
+
+	UPDATE Employee set salary = 45000 WHERE designation="Manager";
+
+8. Change the mobile number of employees named John
+
+	UPDATE Employee set mobile_no= 9142327 WHERE name="John";
+
+9. Delete all employees whose salary is equal to Rs.7000
+
+	DELETE FROM Employee WHERE salary=7000;
+
+10. Retrieve the name,mobile number of all employees whose name start with “A”
+
+	SELECT emp_name,mobile_no FROM Employee WHERE emp_name LIKE "A%";
+
+11. Retrieve the empno,name,salary of all employees working as peon and clerk.
+
+	SELECT emp_no,emp_name,salary FROM Employee WHERE Designation = "Peon" OR Designation = "Clerk"; 
