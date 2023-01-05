@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/inp1"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_margin="15dp"
+            android:background="@color/teal_200"
+            android:hint="no"
+            android:padding="15dp"
+            android:textSize="30dp" />
+
+        <EditText
+            android:id="@+id/inp2"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_margin="15dp"
+            android:background="@color/teal_200"
+            android:hint="no"
+            android:padding="15dp"
+            android:textSize="30dp" />
+
+        <EditText
+            android:id="@+id/result"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_margin="15dp"
+            android:background="@color/teal_200"
+            android:hint="Result"
+            android:padding="15dp"
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:padding="20dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addBtn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_margin="30dp"
+            android:text="+"
+            android:textSize="40dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/subBtn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_margin="30dp"
+
+            android:text="-"
+            android:textSize="40dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mulBtn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_margin="30dp"
+            android:text="*"
+            android:textSize="40dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/divBtn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_margin="30dp"
+            android:text="/"
+            android:textSize="40dp" />
+
+    </GridLayout>
+</LinearLayout>

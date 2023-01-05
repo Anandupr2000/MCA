@@ -1,0 +1,94 @@
+// MainActivity.java
+
+
+public class MainActivity extends AppCompatActivity {
+    private NavigationView nav;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
+    Toolbar toolbar;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initView();
+
+
+//        setting side navigation panel
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//      set windowActionBar to false in theme by :
+//      change <style name="Theme.NavigationDrawer" parent="whatever"> to  <style name="Theme.NavigationDrawer" parent="whatever.NoActionBar">
+        setSupportActionBar(toolbar);
+
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+//        toggle.onOptionsItemSelected()
+        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Toast.makeText(MainActivity.this, item.getTitle()+" clicked", Toast.LENGTH_LONG).show();
+                drawerLayout.closeDrawer(GravityCompat.START);//reseting drawer to begining
+                return false;
+            }
+        });
+    }
+
+    public void initView() {
+        nav = (NavigationView) findViewById(R.id.navmenu);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+    }
+}
+
+// activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="#8000A6FF"
+            app:titleTextColor="@color/black" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navmenu"
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#D9FFFFFF"
+        app:itemIconTint="#191717"
+        app:itemTextColor="@color/black"
+
+        app:menu="@menu/side_bar_menu" />
+</androidx.drawerlayout.widget.DrawerLayout>
+
+// side_bar_menu @ res/menu/side_bar_menu
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item1"
+        android:title="item1" />
+    <item
+        android:id="@+id/item2"
+        android:title="item2" />
+    <item
+        android:id="@+id/item3"
+        android:title="item3" />
+</menu>
